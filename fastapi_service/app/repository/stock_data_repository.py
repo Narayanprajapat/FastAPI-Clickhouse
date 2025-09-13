@@ -12,7 +12,7 @@ class StockDataRepository:
 
     def create(self, stocks_info: list) -> None:
         with clickhouse_pool.client as client:
-            insert_query = "INSERT INTO my_table (id, name, value) VALUES"
+            insert_query = "INSERT INTO market.ticks (event_time, date, symbol, open, high, low, close, volume) VALUES"
             client.execute(insert_query, stocks_info)
             logger.info(msg=f"Data inserted successfully. {len(stocks_info)}")
 
