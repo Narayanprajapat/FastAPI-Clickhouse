@@ -3,4 +3,4 @@ clickhouse_connections_max = 5
 
 clickhouse_host = "localhost"
 clickhouse_username = "default"
-clickhouse_password = 1234
+clickhouse_password = "1234"

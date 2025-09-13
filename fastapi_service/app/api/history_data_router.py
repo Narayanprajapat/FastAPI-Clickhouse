@@ -1,5 +1,5 @@
-from fastapi import APIRouter, status
 from app.schemas.responses import HistoricalData
+from fastapi import APIRouter, HTTPException, status
 from app.services.history_data_service import HistoryDataService
 
 history_router = APIRouter()
@@ -11,4 +11,10 @@ history_router = APIRouter()
     status_code=status.HTTP_200_OK,
 )
 async def latest_price(symbol: str):
-    return HistoryDataService.get_all_data(symbol=symbol)
+    data = HistoryDataService.get_all_data(symbol=symbol)
+    if not data:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"data not found for this stock {symbol}",
+        )
+    return data

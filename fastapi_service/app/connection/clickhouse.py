@@ -14,7 +14,7 @@ logger = logging.getLogger(name="clickhouse.py")
 class ClickhousePool:
     def __init__(self):
         self.pool = None
-        self.client = None
+        self.connect()
 
     def connect(self):
         try:
@@ -25,7 +25,6 @@ class ClickhousePool:
                 connections_min=clickhouse_connections_min,
                 connections_max=clickhouse_connections_max,
             )
-            self.client = self.pool.get_client()
             logger.info(msg="Clickhouse successfully connected")
 
         except Exception as e:

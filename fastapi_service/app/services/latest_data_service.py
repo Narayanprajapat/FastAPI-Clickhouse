@@ -7,4 +7,4 @@ class LatestDataService:
         pass
 
     def get_latest_data(self, symbol: str) -> LatestData:
-        return StockDataRepository.get_latest_by_symbol(symbol=symbol)
+        return StockDataRepository().get_latest_by_symbol(symbol=symbol)
