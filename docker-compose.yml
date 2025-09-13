@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:23.8
+    container_name: clickhouse
+    volumes:
+      - ./clickhouse/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "8124:8123"
+      - "9001:9000"
+    restart: unless-stopped
+
+  fastapi_service:
+    build: ./fastapi_service
+    container_name: fastapi_service
+    ports:
+      - "8000:8000"
+    depends_on:
+      - clickhouse
+
+  ingestion_services:
+    build: ./ingestion_services
+    container_name: ingestion_services
+    depends_on:
+      - clickhouse
