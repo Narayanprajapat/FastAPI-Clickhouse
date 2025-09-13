@@ -28,7 +28,19 @@ class StockDataRepository:
     def get_all_by_symbol(self, symbol: str) -> list[HistoricalData]:
         with clickhouse_pool.pool.get_client() as client:
             results = client.execute(
-                f"SELECT symbol, date, open, close, high, low, volume FROM market.ticks WHERE symbol='{symbol}'"
+                f"""SELECT
+                        symbol,
+                        toDate(event_time) AS _date,
+                        argMin(open, event_time) AS open,
+                        argMax(close, event_time) AS close,
+                        max(high) AS high,
+                        min(low) AS low,
+                        sum(volume) AS volume
+                    FROM market.ticks
+                    WHERE symbol='{symbol}'
+                    GROUP BY symbol, _date
+                    ORDER BY symbol, _date
+                """
             )
             return [
                 HistoricalData(
