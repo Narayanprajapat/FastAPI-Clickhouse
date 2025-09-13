@@ -7,4 +7,4 @@ class HistoryDataService:
         pass
 
     def get_all_data(self, symbol: str) -> HistoricalData:
-        return StockDataRepository.get_all_by_symbol(symbol=symbol)
+        return StockDataRepository().get_all_by_symbol(symbol=symbol)

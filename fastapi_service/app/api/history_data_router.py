@@ -7,11 +7,11 @@ history_router = APIRouter()
 
 @history_router.get(
     path="/{symbol}",
-    response_model=HistoricalData,
+    response_model=list[HistoricalData],
     status_code=status.HTTP_200_OK,
 )
 async def latest_price(symbol: str):
-    data = HistoryDataService.get_all_data(symbol=symbol)
+    data = HistoryDataService().get_all_data(symbol=symbol)
     if not data:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

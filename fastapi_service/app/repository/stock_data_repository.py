@@ -13,7 +13,7 @@ class StockDataRepository:
     def get_latest_by_symbol(self, symbol: str) -> LatestData:
         with clickhouse_pool.pool.get_client() as client:
             result = client.execute(
-                f"SELECT event_time, symbol, open, close FROM market.ticks WHERE symbol='{symbol}' ORDER BY event_time ASC LIMIT 1"
+                f"SELECT event_time, symbol, open, close FROM market.ticks WHERE symbol='{symbol}' ORDER BY event_time DESC LIMIT 1"
             )
             if result:
                 record = LatestData(
@@ -27,5 +27,19 @@ class StockDataRepository:
 
     def get_all_by_symbol(self, symbol: str) -> list[HistoricalData]:
         with clickhouse_pool.pool.get_client() as client:
-            result = client.execute("SELECT * FROM system.numbers LIMIT 5")
-            print(result)
+            results = client.execute(
+                f"SELECT symbol, date, open, close, high, low, volume FROM market.ticks WHERE symbol='{symbol}'"
+            )
+            return [
+                HistoricalData(
+                    symbol=result[0],
+                    date=result[1],
+                    open=result[2],
+                    close=result[3],
+                    high=result[4],
+                    low=result[5],
+                    volume=result[6],
+                )
+                for result in results
+                if results
+            ]
