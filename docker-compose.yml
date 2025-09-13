@@ -14,7 +14,7 @@ services:
     build: ./fastapi_service
     container_name: fastapi_service
     ports:
-      - "8000:8000"
+      - "8080:8080"
     depends_on:
       - clickhouse
 
@@ -23,3 +23,4 @@ services:
     container_name: ingestion_services
     depends_on:
       - clickhouse
+      

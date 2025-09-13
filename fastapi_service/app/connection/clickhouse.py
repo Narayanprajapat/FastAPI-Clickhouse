@@ -2,8 +2,7 @@ from clickhouse_pool import ChPool
 from app.utils.logger import logging
 from app.core.constants import (
     clickhouse_host,
-    clickhouse_username,
-    clickhouse_password,
+    clickhouse_port,
     clickhouse_connections_max,
     clickhouse_connections_min,
 )
@@ -20,8 +19,7 @@ class ClickhousePool:
         try:
             self.pool = ChPool(
                 host=clickhouse_host,
-                user=clickhouse_username,
-                password=clickhouse_password,
+                port=clickhouse_port,
                 connections_min=clickhouse_connections_min,
                 connections_max=clickhouse_connections_max,
             )
