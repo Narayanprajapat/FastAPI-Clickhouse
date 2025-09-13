@@ -1,7 +1,7 @@
 # FastAPI-Clickhouse
 
 ## Key Features & Benefits
-
+- **Summary:** Extracting data from yfinance for stocks and storing the data into clickhouse (analytics) db, created latest-data and historical-data api endpoints.
 - **Created two endpoints:** Latest data and historical data
 - **Health Check Endpoint:** Provides a health check endpoint for monitoring application status.
 - **Dockerized Deployment:** Easy deployment using Docker.
@@ -35,7 +35,7 @@
 1.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/Narayanprajapat/FastAPI-CRUD
+    git clone https://github.com/Narayanprajapat/FastAPI-Clickhouse
     cd FastAPI-CRUD
     ```
 
@@ -46,6 +46,8 @@
     ```
 
 ## Usage Examples & API Documentation
+-   **URL:** `http://localhost:8080/docs`
+
 
 ### API Endpoints:
 
