@@ -3,9 +3,8 @@ from clickhouse_pool import ChPool
 clickhouse_connections_min = 1
 clickhouse_connections_max = 5
 
-clickhouse_host = "localhost"
-clickhouse_username = "default"
-clickhouse_password = "1234"
+clickhouse_host = "clickhouse"
+clickhouse_port = 9000
 
 
 class ClickhousePool:
@@ -17,8 +16,9 @@ class ClickhousePool:
         try:
             self.pool = ChPool(
                 host=clickhouse_host,
-                user=clickhouse_username,
-                password=clickhouse_password,
+                port=clickhouse_port,
+                # user=clickhouse_username,
+                # password=clickhouse_password,
                 connections_min=clickhouse_connections_min,
                 connections_max=clickhouse_connections_max,
             )

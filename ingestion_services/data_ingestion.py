@@ -24,30 +24,46 @@ def fetch_prices():
         stock = yf.Ticker(t)
         info = stock.fast_info
         now = datetime.now()
-        print(info)
-        json_output = {
-            "event_time": datetime.now(),
-            "date": now.strftime("%Y-%m-%d"),
-            "symbol": t.replace(".NS", ""),
-            "open": float(info["open"]),
-            "high": float(info["day_high"]),
-            "low": float(info["day_low"]),
-            "close": float(info["last_price"]),
-            "volume": int(info["last_volume"]),
-        }
+        try:
+            json_output = {
+                "event_time": now,
+                "date": now.date(),
+                "symbol": t.replace(".NS", ""),
+                "open": float(info["open"]),
+                "high": float(info["day_high"]),
+                "low": float(info["day_low"]),
+                "close": float(info["last_price"]),
+                "volume": int(info["last_volume"]),
+            }
+        except Exception as e:
+            print(f"Exception occurred {e} for {t}")
         data.append(json_output)
 
+    insert_values = [
+        (
+            d["event_time"],
+            d["date"],
+            d["symbol"],
+            d["open"],
+            d["high"],
+            d["low"],
+            d["close"],
+            d["volume"],
+        )
+        for d in data
+    ]
+
     print("data fetched succesfully")
-    with clickhouse_pool.client as client:
+
+    with clickhouse_pool.pool.get_client() as client:
         insert_query = "INSERT INTO market.ticks (event_time, date, symbol, open, high, low, close, volume) VALUES"
-        client.execute(insert_query, data)
-        # client.insert("market.ticks", data)
+
+        client.execute(insert_query, insert_values)
 
     print("data inserted sucessfully into clickhouse")
 
 
 def main() -> None:
-    print("start")
     while True:
         fetch_prices()
         time.sleep(5)
