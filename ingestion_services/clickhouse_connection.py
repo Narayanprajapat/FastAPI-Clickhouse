@@ -5,13 +5,12 @@ clickhouse_connections_max = 5
 
 clickhouse_host = "localhost"
 clickhouse_username = "default"
-clickhouse_password = 1234
+clickhouse_password = "1234"
 
 
 class ClickhousePool:
     def __init__(self):
         self.pool = None
-        self.client = None
         self.connect()
 
     def connect(self):
@@ -23,7 +22,6 @@ class ClickhousePool:
                 connections_min=clickhouse_connections_min,
                 connections_max=clickhouse_connections_max,
             )
-            self.client = self.pool.get_client()
             print("Clickhouse successfully connected")
 
         except Exception as e:
@@ -35,7 +33,6 @@ class ClickhousePool:
     def close_connection(self):
         self.pool.cleanup()
         self.pool = None
-        self.client = None
         print("Clickhouse connection close")
 
 
