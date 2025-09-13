@@ -1,5 +1,5 @@
-from fastapi import APIRouter, Response, status
-
+from fastapi import APIRouter, status
+from app.schemas.responses import Response
 
 health_router = APIRouter()
 
@@ -10,4 +10,4 @@ health_router = APIRouter()
     status_code=status.HTTP_200_OK,
 )
 def health():
-    return Response(content="Server is running", status_code=status.HTTP_200_OK)
+    return Response(message="Server is running", status_code=status.HTTP_200_OK)

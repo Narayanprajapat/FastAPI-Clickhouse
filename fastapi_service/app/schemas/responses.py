@@ -17,3 +17,8 @@ class HistoricalData(StockInfo):
     high: float
     low: float
     volume: int
+
+
+class Response(BaseModel):
+    message: str
+    status_code: int
