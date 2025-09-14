@@ -35,9 +35,9 @@ def fetch_prices():
                 "close": float(info["last_price"]),
                 "volume": int(info["last_volume"]),
             }
+            data.append(json_output)
         except Exception as e:
             print(f"Exception occurred {e} for {t}")
-        data.append(json_output)
 
     insert_values = [
         (
