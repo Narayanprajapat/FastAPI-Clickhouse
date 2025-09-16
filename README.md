@@ -39,7 +39,14 @@
     cd FastAPI-CRUD
     ```
 
-2.  **Run Docker Compose:**
+2.  **Create .env for  ingestion_services/.env:**
+
+    ```bash
+    CLIENT_ID=""
+    ACCESS_TOKEN="
+    ```
+
+3.  **Run Docker Compose:**
 
     ```bash
     docker-compose up --build
