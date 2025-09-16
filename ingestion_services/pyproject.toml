@@ -9,6 +9,11 @@ readme = "README.md"
 python = "^3.12"
 yfinance = "^0.2.65"
 clickhouse-pool = "^0.6.1"
+fyers-api = "^1.0.9"
+fyers-apiv3 = "^3.1.7"
+setuptools = "^80.9.0"
+pydantic = "^2.11.9"
+pydantic-settings = "^2.10.1"
 
 
 [build-system]
