@@ -15,6 +15,8 @@ RUN poetry install --no-root
 
 # Copy ingestion script
 COPY data_ingestion.py .
+COPY config.py .
+COPY schema.py .
 COPY clickhouse_connection.py .
 
 
