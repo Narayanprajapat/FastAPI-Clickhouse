@@ -1,7 +1,7 @@
 # FastAPI-Clickhouse
 
 ## Key Features & Benefits
-- **Summary:** Extracting data from yfinance for stocks and storing the data into clickhouse (analytics) db, created latest-data and historical-data api endpoints.
+- **Summary:** Extracting data from fyers for stocks using websocket(realtime) storing the data into clickhouse (analytics) db, created latest-data and historical-data api endpoints.
 - **Created two endpoints:** Latest data and historical data
 - **Health Check Endpoint:** Provides a health check endpoint for monitoring application status.
 - **Dockerized Deployment:** Easy deployment using Docker.
