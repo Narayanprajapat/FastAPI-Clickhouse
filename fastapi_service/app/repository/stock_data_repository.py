@@ -35,10 +35,10 @@ class StockDataRepository:
                         argMax(close, event_time) AS close,
                         max(high) AS high,
                         min(low) AS low,
-                        volume AS volume
+                        volume
                     FROM market.ticks
                     WHERE symbol='{symbol}'
-                    GROUP BY symbol, _date
+                    GROUP BY symbol, _date, volume
                     ORDER BY symbol, _date
                 """
             )
