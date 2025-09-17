@@ -1,5 +1,8 @@
+import time
 import datetime
+import threading
 from fyers_apiv3.FyersWebsocket import data_ws
+from concurrent.futures import ProcessPoolExecutor
 
 
 from schema import Stock
@@ -12,6 +15,7 @@ class FyersWebSocketClient:
     def __init__(self, client_id: str, access_token: str, symbols: list):
         self.final_token = f"{client_id}:{access_token}"
         self.symbols = symbols
+        print("FyersWebSocketClient", self.symbols)
 
         self.fyers = data_ws.FyersDataSocket(
             access_token=self.final_token,
@@ -82,7 +86,7 @@ class FyersWebSocketClient:
         return values
 
     def on_message(self, message):
-        print("Response:", message)
+        # print("Response:", message)
         try:
             if "type" in message and message["type"] == "sf":
                 values = self.data_processing(raw_data=message)
@@ -97,7 +101,7 @@ class FyersWebSocketClient:
         print("Connection closed:", message)
 
     def on_open(self):
-        print("WebSocket Connected. Subscribing to symbols...")
+        print("WebSocket Connected. Subscribing to symbols...", self.symbols)
         data_type = "SymbolUpdate"
 
         self.fyers.subscribe(symbols=self.symbols, data_type=data_type)
@@ -106,6 +110,28 @@ class FyersWebSocketClient:
     def connect(self):
         print("Connecting to Fyers WebSocket...")
         self.fyers.connect()
+
+
+def run_batch(symbols):
+    ws_client = FyersWebSocketClient(
+        client_id=fyers_config.CLIENT_ID,
+        access_token=fyers_config.ACCESS_TOKEN,
+        symbols=symbols,
+    )
+    threading.Thread(target=ws_client.connect, daemon=True).start()
+
+
+def run_in_batches(all_symbols, batch_size=200):
+    batches = [
+        all_symbols[i : i + batch_size] for i in range(0, len(all_symbols), batch_size)
+    ]
+    with ProcessPoolExecutor(
+        max_workers=int(len(batches) / batch_size) + 1
+    ) as executor:
+        for idx, batch in enumerate(batches, 1):
+            print(f"Launching Client {idx} for {len(batch)} symbols")
+            time.sleep(5)
+            executor.submit(run_batch, batch)
 
 
 def main() -> None:
@@ -133,15 +159,12 @@ def main() -> None:
         "NSE:TITAN-EQ",
         "NSE:ONGC-EQ",
         "NSE:NTPC-EQ",
-        "NSE:POWERGRID-EQ",
     ]
 
-    ws_client = FyersWebSocketClient(
-        client_id=fyers_config.CLIENT_ID,
-        access_token=fyers_config.ACCESS_TOKEN,
-        symbols=symbols,
-    )
-    ws_client.connect()
+    run_in_batches(
+        all_symbols=symbols, 
+        batch_size=5
+        )
 
 
 if __name__ == "__main__":
