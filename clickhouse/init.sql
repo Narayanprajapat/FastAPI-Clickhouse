@@ -13,6 +13,10 @@ CREATE TABLE IF NOT EXISTS market.ticks
     prev_close_price Float64,
     created_at   DateTime DEFAULT now()
 )
-ENGINE = MergeTree()
+ENGINE = ReplacingMergeTree(created_at)
 PARTITION BY toYYYYMM(date)
-ORDER BY (symbol, event_time);
+ORDER BY (symbol, date);
+
+SELECT * FROM market.ticks FINAL;
+
+OPTIMIZE TABLE market.ticks;
