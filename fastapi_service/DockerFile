@@ -4,6 +4,8 @@ FROM python:3.12-slim
 # Set working directory
 WORKDIR /app
 
+ENV TZ=Asia/Kolkata
+
 # Install Poetry
 RUN pip install poetry
 
