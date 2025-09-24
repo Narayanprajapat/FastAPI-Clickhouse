@@ -9,7 +9,6 @@ class SharpelyScrapper:
 
         headers = {
             "sec-ch-ua-platform": "macOS",
-            "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlpUcG5mdXU3bnNRM3hWQXhVdnhKMiJ9.eyJpc3MiOiJodHRwczovL2Rldi1saGotZTVncy51cy5hdXRoMC5jb20vIiwic3ViIjoiTGkyTDlWTzFlYXdFYnNnTHJIZHBaamhtVWRXNk44Q21AY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vc2VjdXJlLmFwaTIuZmlucGVnLmNvbS8iLCJpYXQiOjE3NTg1NDc1NTQsImV4cCI6MTc1ODU2NTU1NCwic2NvcGUiOiJyZWFkOmRhdGEiLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMiLCJhenAiOiJMaTJMOVZPMWVhd0Vic2dMckhkcFpqaG1VZFc2TjhDbSJ9.Q6xxwpDgtp7hFDxpjnTuBiPFeSoXv2TSaYLzx0BrRQbgHY6vEQce59AQXcrzKsBuYMvGAcl5f797RGWx3nI3uL59M2p_SpLugKcgeCOT3dCdBjFX1ho0HGXx06DW2Q-oXdlBN4jzFSg7-KeoKtZ8Yi8IZCcZee-sLEdsfGFpzoXk090aUyCyHLCYhIDFfcv-LN3mc4b9Xs4acRG9A_TJ1h1rT8uZsB4q6B-9dKiBF9LAeg78u6KzjiPfW0phE8U59ER_26IwZs2aibNawMuWKqlQX9_jfbrWSCyQ_WM9SNDDFb7eVpDNphb6d4AHuNTzD0VjExWKvRR4wsC7gBteqA",
             "Referer": "https://sharpely.in/",
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
             "Accept": "application/json, text/plain, */*",
