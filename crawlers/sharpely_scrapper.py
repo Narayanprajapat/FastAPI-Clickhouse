@@ -1,6 +1,11 @@
+import os
 import json
 import requests
+from dotenv import load_dotenv
 
+load_dotenv()
+
+BEARER_TOKEN = os.getenv('BEARER_TOKEN')
 
 class SharpelyScrapper:
 
@@ -9,6 +14,7 @@ class SharpelyScrapper:
 
         headers = {
             "sec-ch-ua-platform": "macOS",
+            "Authorization": f"Bearer {BEARER_TOKEN}",
             "Referer": "https://sharpely.in/",
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
             "Accept": "application/json, text/plain, */*",
